@@ -1,12 +1,12 @@
 # AestheticCam
 
-## 1. Envirionment
+## 1. Environment
 
 ```
 Python Version : 3.10.16
 ```
 
-The Envirionment can follow the [Official 3DGS repo](https://github.com/graphdeco-inria/gaussian-splatting) to install, and use the `pip install -r requirements.txt` to install remaining modules
+The Environment can follow the [Official 3DGS repo](https://github.com/graphdeco-inria/gaussian-splatting) to install, and use the `pip install -r requirements.txt` to install remaining modules
 
 ## 2. Data prepare
 
