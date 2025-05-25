@@ -8,5 +8,6 @@ The Envirionment can follow the [Official 3DGS repo](https://github.com/graphdec
 
 
 > reference code:
+> - [3DGS repo](https://github.com/graphdeco-inria/gaussian-splatting)
 > - [GAIT: Generating Aesthetic Indoor Tours with Deep Reinforcement Learning](https://github.com/desaixie/gait)
 > - [Good View Hunting: Learning Photo Composition from Dense View Pairs](https://github.com/zijunwei/ViewEvaluationNet)
