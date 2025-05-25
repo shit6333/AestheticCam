@@ -12,6 +12,7 @@ def test_agent(
     ckpt_path: str,
     out_dir: str = "./demo_test_frames",
     max_steps: int = 200,
+    init_idx: int = -1,
     device: str = "cuda"
 ):
     Path(out_dir).mkdir(parents=True, exist_ok=True)
@@ -79,7 +80,10 @@ def test_agent(
     agent.set_weights(ckpt['agent_state_dict'])
 
     # testing
-    obs_dict, _ = env.reset()
+    if init_idx != -1:
+        obs_dict, _ = env.reset(idx=init_idx)
+    else:
+        obs_dict, _ = env.reset()
     obs_img = obs_dict['image']
     obs_pose = obs_dict['pose'][:-1]
     history_poses = obs_dict['history_poses'][:, :-1]
@@ -115,6 +119,7 @@ def test_agent(
 
         done = terminated or truncated
         t_step += 1
+        print(f'Step: {t_step} save to => f"{out_dir}/frame_{frame_idx:04d}.png"')
 
     print(f"Test finished. Total steps: {t_step}")
     env.close()
@@ -135,5 +140,6 @@ if __name__ == "__main__":
         ckpt_path=args.ckpt,
         out_dir=args.outdir,
         max_steps=args.max_steps,
-        device=args.device
+        device=args.device,
+        init_idx = 10
     )

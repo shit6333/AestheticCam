@@ -48,6 +48,13 @@ def random_camera_pose_sample(init_poses):
     T = H_inv[:3, 3]
     return R, T
 
+def selected_camera_pose_sample(init_poses, idx):
+    H = init_poses[idx]
+    H_inv = np.linalg.inv(H)
+    R = H[:3,:3]
+    T = H_inv[:3, 3]
+    return R, T
+
 class UnifiedGaussianEnv(gym.Env):
     metadata = {"render_modes": ["rgb_array"]}
 
@@ -122,7 +129,7 @@ class UnifiedGaussianEnv(gym.Env):
         self.T = np.zeros(3,dtype=np.float32)
         self.step_count = 0
 
-    def reset(self, *, seed=None, options=None):
+    def reset(self, *, seed=None, options=None, idx=None):
         self.step_count = 0
         self.past_actions.clear()
         self.pose_history.clear()
@@ -139,6 +146,10 @@ class UnifiedGaussianEnv(gym.Env):
                 black_ratio = black_mask.mean()         # float
                 if black_ratio <= 0.30:
                     break   
+
+        if idx is not None:
+            self.R, self.T = selected_camera_pose_sample(self.init_poses, idx)
+            img = self._render()
 
         pose = self._get_pose()
         img = resize_numpy(img, (84,84))
